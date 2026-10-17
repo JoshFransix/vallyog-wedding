@@ -462,8 +462,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   inset: -4%;
   z-index: -1;
   background:
-    linear-gradient(180deg, rgba(74, 15, 29, .78) 0%, rgba(109, 26, 44, .82) 50%, rgba(60, 10, 22, .92) 100%),
-    url("photos/hero.jpg") center 30% / cover no-repeat,
+    linear-gradient(180deg, rgba(74, 15, 29, .74) 0%, rgba(109, 26, 44, .7) 45%, rgba(60, 10, 22, .9) 100%),
+    url("photos/image-1.jpg") 46% 45% / cover no-repeat,
     radial-gradient(90% 70% at 50% 35%, #8a2a40 0%, var(--wine) 45%, var(--wine-deep) 100%);
   /* slow zoom uses `scale`, leaving `transform` free for the parallax */
   scale: 1.08;
@@ -756,8 +756,11 @@ body.opened .hero.scrolled .scroll-cue {
    GALLERY
    ========================================================= */
 .gallery-wrap {
-  margin-top: clamp(3rem, 8vw, 5rem);
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+  padding: 0 var(--gutter);
+  text-align: center;
 }
+.gallery-wrap .script-title { margin-bottom: clamp(1.4rem, 3vw, 2rem); }
 .gallery {
   display: grid;
   gap: 6px;
@@ -810,6 +813,19 @@ body.opened .hero.scrolled .scroll-cue {
   .gallery { grid-template-columns: repeat(3, 1fr); }
   .gallery figure:nth-child(3n + 1) { grid-column: auto; aspect-ratio: 4 / 5; }
   .gallery figure:nth-child(5n + 1) { grid-column: span 2; aspect-ratio: auto; }
+}
+
+/* just one photo: show it whole, framed like a print */
+.gallery.single {
+  display: block;
+  /* never taller than ~70% of the screen, never wider than 460px */
+  width: min(100%, 460px, 52vh);
+  padding: 0;
+}
+.gallery.single figure {
+  aspect-ratio: 3 / 4;
+  border-radius: 3px;
+  box-shadow: 0 30px 60px -30px rgba(74, 15, 29, .45);
 }
 
 /* lightbox */

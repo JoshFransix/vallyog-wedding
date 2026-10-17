@@ -9,15 +9,10 @@ const CONFIG = {
   // International format, digits only — e.g. 2348012345678
   rsvpWhatsApp: "2340000000000",
 
-  // Photos — put files in the photos/ folder with these names.
-  // Missing files show a soft placeholder box instead.
+  // Gallery photos — put files in the photos/ folder and list them here.
+  // (The photo behind the names is set in styles.css, under .hero-bg.)
   photos: [
-    "photos/1.jpg",
-    "photos/2.jpg",
-    "photos/3.jpg",
-    "photos/4.jpg",
-    "photos/5.jpg",
-    "photos/6.jpg",
+    "photos/image-1.jpg",
   ],
 
   // Footer contacts
@@ -265,6 +260,7 @@ $("#maps-link").href =
 
 /* ---------- Gallery ---------- */
 const grid = $("#gallery-grid");
+grid.classList.toggle("single", CONFIG.photos.length === 1);
 CONFIG.photos.forEach((src, i) => {
   const fig = document.createElement("figure");
   fig.dataset.n = i + 1;
