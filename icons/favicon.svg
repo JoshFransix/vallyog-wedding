@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- O&O wax-seal monogram, crisp at any tab size -->
+  <defs>
+    <radialGradient id="w" cx="35%" cy="30%" r="75%">
+      <stop offset="0" stop-color="#a2384f"/>
+      <stop offset=".5" stop-color="#6d1a2c"/>
+      <stop offset="1" stop-color="#4a0f1d"/>
+    </radialGradient>
+  </defs>
+  <circle cx="32" cy="32" r="31" fill="url(#w)"/>
+  <circle cx="32" cy="32" r="26.5" fill="none" stroke="#f3d6dc" stroke-opacity=".35" stroke-width="1"/>
+  <text x="32" y="41" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="25" fill="#f6dde3">O&amp;O</text>
+</svg>
