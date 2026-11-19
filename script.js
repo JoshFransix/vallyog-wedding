@@ -6,29 +6,34 @@ const CONFIG = {
   date: "2026-12-05T12:00:00+01:00",
 
   // RSVPs open WhatsApp with a ready-made message to this number.
-  // International format, digits only — e.g. 2348012345678
+  // International format, digits only, e.g. 2348012345678
   rsvpWhatsApp: "2340000000000",
 
-  // Gallery photos — put files in the photos/ folder and list them here.
+  // Gallery photos: put files in the photos/ folder and list them here.
+  // The first one is shown largest. "pos" picks the part of the photo kept
+  // in view when it is cropped (horizontal% vertical%).
   // (The photo behind the names is set in styles.css, under .hero-bg.)
   photos: [
-    "photos/image-1.jpg",
+    { src: "photos/moment-1.jpg", pos: "50% 28%", alt: "Oluebube and Onyedikachi smiling together, cheek to cheek" },
+    { src: "photos/moment-2.jpg", pos: "50% 22%", alt: "Oluebube embracing Onyedikachi from behind as he smiles up at her" },
+    { src: "photos/moment-3.jpg", pos: "50% 34%", alt: "Oluebube holding Onyedikachi close, her engagement ring in view" },
   ],
 
   // Footer contacts
   contacts: {
+    // Add a name to show it before the number, e.g. { name: "Ada", phone: "..." }
     "Bride’s side": [
-      { name: "Contact name", phone: "+234 000 000 0000" },
-      { name: "Contact name", phone: "+234 000 000 0000" },
+      { phone: "0703 621 2091" },
+      { phone: "0803 712 7085" },
     ],
     "Groom’s side": [
-      { name: "Contact name", phone: "+234 000 000 0000" },
-      { name: "Contact name", phone: "+234 000 000 0000" },
+      { phone: "0703 943 1148" },
+      { phone: "0806 242 8352" },
     ],
   },
 
   venue: "Nze Festus Okpalachukwu Onodugo Compound, Agbelu Village, Akpo, Aguata LGA, Anambra State, Nigeria",
-  eventTitle: "Oluebube & Onyedikachi — Traditional Marriage",
+  eventTitle: "Traditional Marriage of Oluebube & Onyedikachi",
 };
 
 /* ========================================================= */
@@ -105,7 +110,7 @@ function flipCard() {
   ], { duration: 1600, easing: "cubic-bezier(.55, 0, .3, 1)", fill: "forwards" });
 
   anim.onfinish = () => {
-    // the card covers the screen now, so drop the pink intro at once —
+    // the card covers the screen now, so drop the pink intro at once,
     // otherwise it would show through as the card fades
     intro.style.transition = "none";
     finishIntro();
@@ -261,13 +266,15 @@ $("#maps-link").href =
 /* ---------- Gallery ---------- */
 const grid = $("#gallery-grid");
 grid.classList.toggle("single", CONFIG.photos.length === 1);
-CONFIG.photos.forEach((src, i) => {
+CONFIG.photos.forEach((photo, i) => {
+  const { src, alt, pos } = typeof photo === "string" ? { src: photo } : photo;
   const fig = document.createElement("figure");
   fig.dataset.n = i + 1;
   const img = new Image();
   img.loading = "lazy";
   img.decoding = "async";
-  img.alt = `Oluebube and Onyedikachi — photo ${i + 1}`;
+  img.alt = alt || `Oluebube and Onyedikachi, photo ${i + 1}`;
+  if (pos) img.style.setProperty("--pos", pos);
   img.src = src;
   img.addEventListener("error", () => fig.classList.add("placeholder"));
   fig.appendChild(img);
@@ -335,13 +342,18 @@ lb.addEventListener("touchend", (e) => {
 });
 
 /* ---------- Footer contacts ---------- */
+// "0703 621 2091" becomes "+2347036212091" so every phone dials it correctly
+const telNumber = (n) => {
+  const d = n.replace(/[^\d+]/g, "");
+  return d.startsWith("0") ? "+234" + d.slice(1) : d;
+};
 const contactsBox = $("#contacts");
 Object.entries(CONFIG.contacts).forEach(([side, people], i) => {
   const col = document.createElement("div");
   col.className = "reveal";
   col.style.setProperty("--d", 0.15 + i * 0.1 + "s");
   col.innerHTML = `<h3>${side}</h3><ul>${people
-    .map((p) => `<li>${p.name} — <a href="tel:${p.phone.replace(/[^\d+]/g, "")}">${p.phone}</a></li>`)
+    .map((p) => `<li>${p.name ? p.name + ": " : ""}<a href="tel:${telNumber(p.phone)}">${p.phone}</a></li>`)
     .join("")}</ul>`;
   contactsBox.appendChild(col);
 });

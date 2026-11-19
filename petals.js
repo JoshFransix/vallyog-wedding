@@ -1,5 +1,5 @@
 /* =========================================================
-   Rose petals — a small canvas particle system.
+   Rose petals: a small canvas particle system.
 
    Each petal is a pre-rendered sprite (front = rich and glossy,
    back = paler and matte) drawn with a 3D tumble: as it rotates
@@ -9,8 +9,8 @@
    Petals live at different depths: far ones are small, slow and
    faint; near ones are large, fast and slightly out of focus.
 
-   Petals.burst(rect)  — petals pop up out of an element, hang, then fall
-   Petals.rain(sec)    — a gentle fall from the top of the screen
+   Petals.burst(rect)  : petals pop up out of an element, hang, then fall
+   Petals.rain(sec)    : a gentle fall from the top of the screen
    ========================================================= */
 const Petals = (() => {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
