@@ -16,7 +16,7 @@ const CONFIG = {
   photos: [
     { src: "photos/moment-1.jpg", pos: "50% 28%", alt: "Oluebube and Onyedikachi smiling together, cheek to cheek" },
     { src: "photos/moment-2.jpg", pos: "50% 22%", alt: "Oluebube embracing Onyedikachi from behind as he smiles up at her" },
-    { src: "photos/moment-3.jpg", pos: "50% 34%", alt: "Oluebube holding Onyedikachi close, her engagement ring in view" },
+    { src: "photos/moment-3.jpg", pos: "50% 30%", alt: "Onyedikachi seated on a wooden bench with Oluebube standing behind him, arms wrapped around him" },
   ],
 
   // Footer contacts
