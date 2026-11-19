@@ -390,7 +390,9 @@ form.addEventListener("submit", async (e) => {
   }
 
   form.hidden = true;
-  $("#thanks").hidden = false;
+  const thanks = $("#thanks");
+  thanks.hidden = false;
+  thanks.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
 });
 
 form.addEventListener("input", (e) => {

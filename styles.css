@@ -907,6 +907,9 @@ body.opened .hero.scrolled .scroll-cue {
 #rsvp { padding-bottom: clamp(4rem, 10vw, 6rem); }
 #rsvp .divider { margin: 0 auto 2.2rem; }
 
+/* anything marked hidden stays hidden, whatever its layout rule says */
+[hidden] { display: none !important; }
+
 .rsvp {
   max-width: 460px;
   margin: 2rem auto 0;
