@@ -5,10 +5,6 @@ const CONFIG = {
   // Ceremony start, Nigerian time (WAT, UTC+1)
   date: "2026-12-05T12:00:00+01:00",
 
-  // RSVPs open WhatsApp with a ready-made message to this number.
-  // International format, digits only, e.g. 2348012345678
-  rsvpWhatsApp: "2340000000000",
-
   // Gallery photos: put files in the photos/ folder and list them here.
   // The first one is shown largest. "pos" picks the part of the photo kept
   // in view when it is cropped (horizontal% vertical%).
@@ -358,11 +354,13 @@ Object.entries(CONFIG.contacts).forEach(([side, people], i) => {
   contactsBox.appendChild(col);
 });
 
-/* ---------- RSVP → WhatsApp ---------- */
+/* ---------- RSVP: sent to Netlify Forms, which emails it to the family ---------- */
 const form = $("#rsvp-form");
 const formError = $("#form-error");
 
-form.addEventListener("submit", (e) => {
+const rsvpBtn = $("#rsvp-btn");
+
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
   formError.textContent = "";
   $$(".field", form).forEach((f) => f.classList.remove("invalid"));
@@ -375,21 +373,21 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
-  const d = Object.fromEntries(new FormData(form));
-  const lines = [
-    "Hello! Here is my RSVP for Oluebube & Onyedikachi’s Traditional Marriage (5 Dec 2026).",
-    "",
-    `Name: ${d.name}`,
-    `Phone: ${d.phone}`,
-    d.email && `Email: ${d.email}`,
-    d.city && `Staying in: ${d.city}`,
-    `Guest of: ${d.side}`,
-    `Attending: ${d.attending}`,
-    d.note && `Note: ${d.note}`,
-  ].filter((l) => l !== undefined && l !== "");
-
-  const url = `https://wa.me/${CONFIG.rsvpWhatsApp}?text=${encodeURIComponent(lines.join("\n"))}`;
-  window.open(url, "_blank", "noopener");
+  rsvpBtn.disabled = true;
+  rsvpBtn.textContent = "Sending…";
+  try {
+    const res = await fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(new FormData(form)).toString(),
+    });
+    if (!res.ok) throw new Error(res.status);
+  } catch {
+    formError.textContent = "Sorry, your RSVP didn’t go through. Please check your connection and try again, or call one of the numbers below.";
+    rsvpBtn.disabled = false;
+    rsvpBtn.textContent = "Send my RSVP";
+    return;
+  }
 
   form.hidden = true;
   $("#thanks").hidden = false;

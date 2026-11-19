@@ -73,7 +73,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
   <noscript><style>.intro{display:none!important}body.locked{overflow:auto!important}.reveal,.h-anim{opacity:1!important;transform:none!important;filter:none!important}</style></noscript>
 </head>
 <body class="locked">
@@ -333,7 +333,12 @@
         Kindly let us know you are coming, so both families can plan for you properly.
       </p>
 
-      <form class="rsvp" id="rsvp-form" novalidate>
+      <!-- Netlify picks this form up when the site is deployed and stores every
+           RSVP; set the email they go to under Project configuration > Notifications. -->
+      <form class="rsvp" id="rsvp-form" name="rsvp" method="POST" action="/" data-netlify="true" netlify-honeypot="company" novalidate>
+        <input type="hidden" name="form-name" value="rsvp">
+        <input type="hidden" name="subject" value="New RSVP: Oluebube &amp; Onyedikachi's Traditional Marriage">
+        <p class="hp" aria-hidden="true"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
         <label class="field reveal">
           <span>Your full name</span>
           <input name="name" type="text" placeholder="Name" autocomplete="name" required>
@@ -373,12 +378,12 @@
         </label>
 
         <p class="form-error" id="form-error" role="alert"></p>
-        <button class="btn reveal" type="submit">Send my RSVP</button>
+        <button class="btn reveal" type="submit" id="rsvp-btn">Send my RSVP</button>
       </form>
 
       <div class="thanks" id="thanks" hidden>
         <h3 class="script-title">Thank you!</h3>
-        <p>Your RSVP is ready in WhatsApp. Just tap send. We can’t wait to celebrate with you.</p>
+        <p>Your RSVP has been sent to the family. We can’t wait to celebrate with you.</p>
       </div>
     </section>
   </main>
@@ -406,6 +411,6 @@
   </div>
 
   <script src="petals.js?v=7"></script>
-  <script src="script.js?v=9"></script>
+  <script src="script.js?v=10"></script>
 </body>
 </html>

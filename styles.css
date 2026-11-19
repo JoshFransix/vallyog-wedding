@@ -992,6 +992,10 @@ body.opened .hero.scrolled .scroll-cue {
 .btn:hover { background: var(--wine-deep); }
 .btn:hover::after { transform: translateX(100%); }
 .btn:active { transform: scale(.985); }
+.btn:disabled { opacity: .7; cursor: wait; }
+
+/* spam trap: hidden from people, bots fill it in and Netlify drops them */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 .thanks {
   margin-top: 2rem;
